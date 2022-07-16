@@ -1,0 +1,13 @@
+[package]
+name = "tdigest-ch-rust"
+version = "0.1.0"
+edition = "2021"
+publish = false
+
+[dependencies]
+tdigest-ch = { git = "https://github.com/vivienm/rust-tdigest-ch.git", version = "0.1.0" }
+pyo3 = { version = "0.16.5", features = ["extension-module"] }
+
+[lib]
+name = "tdigest_ch_rust"
+crate-type = ["cdylib"]

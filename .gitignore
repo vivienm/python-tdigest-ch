@@ -1,0 +1,11 @@
+/__pypackages__/
+/.benchmarks/
+/.mypy_cache/
+/.nox/
+/.pdm.toml
+/.pytest_cache/
+/build/
+/dist/
+/pdm.lock
+/src/*.egg-info/
+/src/**/*.cpython-*.so

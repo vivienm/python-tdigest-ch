@@ -1,0 +1,83 @@
+[project]
+name = "tdigest_ch"
+description = "A Python port of ClickHouse t-digest data structures, implemented in Rust."
+readme = "README.md"
+requires-python = ">=3.7"
+license = {text = "MIT"}
+authors = [{name = "Vivien Maisonneuve", email = "v.maisonneuve@gmail.com"}]
+dynamic = ["version"]
+dependencies = []
+
+[project.urls]
+Repository = "https://github.com/vivienm/python-tdigest-ch"
+
+[project.optional-dependencies]
+
+
+[build-system]
+requires = ["pdm-pep517>=0.12.0", "setuptools-rust"]
+build-backend = "pdm.pep517.api"
+
+
+[tool.pdm]
+version = {use_scm = true}
+editable-backend = "editables"
+
+[tool.pdm.build]
+package-dir = "src"
+setup-script = "build.py"
+run-setuptools = true
+
+[tool.pdm.dev-dependencies]
+black = [
+    "black>=22.6.0",
+]
+flake8 = [
+    "flake8>=4.0.1",
+    "flake8-docstrings>=1.6.0",
+]
+isort = [
+    "isort>=5.10.1",
+]
+mypy = [
+    "mypy>=0.961",
+    "pytest>=7.1.2",
+    "setuptools-rust>=1.4.1",
+]
+pytest = [
+    "pytest>=7.1.2",
+    "pytest-benchmark>=3.4.1",
+    "tdigest>=0.5.2.2",
+]
+audit = [
+    "pip-audit>=2.4.1",
+]
+nox = [
+    "nox>=2022.1.7",
+]
+
+
+[tool.isort]
+profile = "black"
+
+
+[tool.mypy]
+exclude = [
+    "__pypackages__",
+    "build",
+]
+
+[[tool.mypy.overrides]]
+module = [
+    "nox",
+    "pytest_benchmark.fixture",
+    "tdigest_ch._rust",
+    "setuptools_rust",
+    "tdigest",
+]
+ignore_missing_imports = true
+
+
+[tool.pytest.ini_options]
+addopts = "--doctest-modules"
+testpaths = "src tests"

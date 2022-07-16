@@ -1,0 +1,19 @@
+# Changes here will be overwritten by Copier. NEVER EDIT MANUALLY.
+
+_commit: d550aaa
+_src_path: git+https://github.com/vivienm/copier-python-pdm
+author_email: v.maisonneuve@gmail.com
+author_fullname: Vivien Maisonneuve
+copyright_date: '2022'
+copyright_holder: Vivien Maisonneuve
+copyright_license: MIT
+distribution_name: tdigest-ch
+module_name: tdigest_ch
+project_description: A faster t-digest Python library implemented in Rust.
+project_name: tdigest-ch
+project_type: lib
+python_version: '>=3.7'
+repository_name: python-tdigest-ch
+repository_namespace: vivienm
+repository_provider: github.com
+script_name: tdigest-ch
