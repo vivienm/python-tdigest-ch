@@ -102,6 +102,9 @@ class TestTDigest:
         assert t.quantile(1.0) == 3.0
         assert t.quantile(0.5) == 2.0
 
+        with pytest.raises(TypeError):
+            t.add("not a number")
+
     def test_clear(self):
         t = TDigest([1.0, 2.0, 3.0])
         t.clear()
@@ -143,6 +146,9 @@ class TestTDigest:
         t.update([1, 1, 2, 2, 3, 4, 4, 4, 5, 5])
         assert t.quantile(0.3) == 2.0
         assert t.quantile(0.4) == 2.0
+
+        with pytest.raises(TypeError):
+            t.quantile("not a number")
 
     def test_quantile_extreme(self):
         t = TDigest()
