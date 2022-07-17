@@ -64,9 +64,22 @@ class TDigest:
         """Return a copy of the t-digest."""
         return TDigest(self)
 
+    @staticmethod
+    def from_json(json: Union[str, bytes]) -> "TDigest":
+        """Return a t-digest from a JSON representation."""
+        if isinstance(json, str):
+            json = json.encode()
+        digest = TDigest.__new__(TDigest)
+        digest._inner = _rust.TDigest.from_json(json)
+        return digest
+
     def quantile(self, q: float) -> float:
         """Return the qth quantile of the t-digest."""
         return self._inner.quantile(q)
+
+    def to_json(self) -> bytes:
+        """Return a JSON representation of the t-digest."""
+        return self._inner.to_json()
 
     def update(self, *others: _Elements) -> None:
         """Update the t-digest, adding elements from all others."""

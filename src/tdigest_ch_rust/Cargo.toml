@@ -5,8 +5,9 @@ edition = "2021"
 publish = false
 
 [dependencies]
-tdigest-ch = { git = "https://github.com/vivienm/rust-tdigest-ch.git", version = "0.1.0" }
+tdigest-ch = { git = "https://github.com/vivienm/rust-tdigest-ch.git", version = "0.1.0", features = ["serde"] }
 pyo3 = { version = "0.16.5", features = ["extension-module"] }
+serde_json = "1.0.82"
 
 [lib]
 name = "tdigest_ch_rust"

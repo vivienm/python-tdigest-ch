@@ -117,6 +117,19 @@ class TestTDigest:
         assert t1 != t2
         assert len(t2) == 3
 
+    def test_from_json(self):
+        t = TDigest.from_json(b"[[0.01,2048,2048],[[1.0,1],[2.0,1],[3.0,1]],3,3]")
+        assert t.quantile(0.5) == 2.0
+
+        t = TDigest.from_json("[[0.01,2048,2048],[[1.0,1],[2.0,1],[3.0,1]],3,3]")
+        assert t.quantile(0.5) == 2.0
+
+        with pytest.raises(TypeError):
+            TDigest.from_json(1)
+
+        with pytest.raises(ValueError):
+            TDigest.from_json(b"[[0.01,2048,2048],[[1.0,1],[2.0,1],[3.0,1]],3,3,1]")
+
     def test_quantile(self):
         t = TDigest()
         t.update([1, 2, 3])
@@ -151,6 +164,10 @@ class TestTDigest:
         assert abs(t.quantile(0.99) - 0.99) < 0.005
         assert abs(t.quantile(0.001) - 0.001) < 0.001
         assert abs(t.quantile(0.999) - 0.999) < 0.001
+
+    def test_to_json(self):
+        t = TDigest([1.0, 2.0, 3.0])
+        assert t.to_json() == b"[[0.01,2048,2048],[[1.0,1],[2.0,1],[3.0,1]],3,3]"
 
     def test_union(self):
         t1 = TDigest([1.0, 2.0, 3.0])
