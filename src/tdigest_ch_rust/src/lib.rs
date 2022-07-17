@@ -74,7 +74,7 @@ impl TDigest {
         });
     }
 
-    fn update_sequence(&mut self, py: Python, values: Vec<f32>) {
+    fn update_vec(&mut self, py: Python, values: Vec<f32>) {
         py.allow_threads(|| self.inner.extend(values.into_iter()));
     }
 }

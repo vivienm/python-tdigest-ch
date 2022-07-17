@@ -1,4 +1,3 @@
-from collections.abc import Sequence
 from typing import Any, Iterable, NoReturn, Optional, Union
 
 from . import _rust  # type: ignore
@@ -88,10 +87,10 @@ class TDigest:
         for other in others:
             if isinstance(other, TDigest):
                 self._inner.update_digest(other._inner)
-            elif isinstance(other, Sequence):
-                self._inner.update_sequence(other)
+            elif isinstance(other, (list, tuple)):
+                self._inner.update_vec(other)
             else:
-                self._inner.update_sequence(list(other))
+                self._inner.update_vec(list(other))
 
     def union(self, *others: _Elements) -> "TDigest":
         """Return a new t-digest with elements from the t-digest and all others."""
