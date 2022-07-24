@@ -80,6 +80,14 @@ class TDigest:
         """Return a JSON representation of the t-digest."""
         return self._inner.to_json()
 
+    def union(self, *others: TDigestible) -> "TDigest":
+        """Return a new t-digest with elements from the t-digest and all others."""
+        if len(others) == 0:
+            return self
+        result = self.copy()
+        result.update(*others)
+        return result
+
     def update(self, *others: TDigestible) -> None:
         """Update the t-digest, adding elements from all others."""
         if len(others) == 0:
@@ -91,11 +99,3 @@ class TDigest:
                 self._inner.update_vec(other)
             else:
                 self._inner.update_vec(list(other))
-
-    def union(self, *others: TDigestible) -> "TDigest":
-        """Return a new t-digest with elements from the t-digest and all others."""
-        if len(others) == 0:
-            return self
-        result = self.copy()
-        result.update(*others)
-        return result
