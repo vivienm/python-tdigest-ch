@@ -73,7 +73,7 @@ def mypy(session: nox.Session) -> None:
     session.run("mypy", ".")
 
 
-@nox.session(python=["3.7", "3.8", "3.9", "3.10"])
+@nox.session(python=["3.8", "3.9", "3.10"])
 def pytest(session: nox.Session) -> None:
     session.run(
         "pdm",
@@ -85,6 +85,20 @@ def pytest(session: nox.Session) -> None:
         external=True,
     )
     session.run("pytest", "--benchmark-skip")
+
+
+@nox.session()
+def sphinx(session: nox.Session) -> None:
+    session.run(
+        "pdm",
+        "sync",
+        "--clean",
+        "-G",
+        "sphinx",
+        "--no-editable",
+        external=True,
+    )
+    session.run("sphinx-build", "docs", "docs/_build/html")
 
 
 @nox.session()

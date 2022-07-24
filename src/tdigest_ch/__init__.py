@@ -12,7 +12,18 @@ def _unsupported_operand_types(op: str, left: Any, right: Any) -> NoReturn:
 
 
 class TDigest:
-    """A t-digest data structure."""
+    """T-digest data structure for approximating the quantiles of a distribution.
+
+    Examples:
+        >>> digest = TDigest();
+        >>> # Add some elements.
+        >>> digest.add(1.0);
+        >>> digest.add(2.0);
+        >>> digest.add(3.0);
+        >>> # Get the median of the distribution.
+        >>> digest.quantile(0.5);
+        2.0
+    """
 
     __slots__ = ["_inner"]
 
@@ -36,15 +47,45 @@ class TDigest:
         return isinstance(other, TDigest) and self._inner.is_equal(other._inner)
 
     def __ior__(self, other: "TDigest") -> "TDigest":
+        """Update the t-digest, adding elements from the other.
+
+        Examples:
+            >>> digest_1 = TDigest([1.0, 2.0, 3.0])
+            >>> digest_2 = TDigest([4.0, 5.0])
+            >>> digest_1 |= digest_2
+            >>> len(digest_1)
+            5
+        """
         if not isinstance(other, TDigest):
             _unsupported_operand_types("|=", self, other)
         self._inner.update_digest(other._inner)
         return self
 
     def __len__(self) -> int:
+        """Return the number of elements in the t-digest.
+
+        Examples:
+            >>> digest = TDigest([1.0, 2.0, 3.0])
+            >>> len(digest)
+            3
+            >>> digest.add(3.0, count=2)
+            >>> len(digest)
+            5
+        """
         return len(self._inner)
 
     def __or__(self, other: "TDigest") -> "TDigest":
+        """Return a new t-digest with elements from the t-digest and the other.
+
+        Examples:
+            >>> digest_1 = TDigest([1.0, 2.0, 3.0])
+            >>> digest_2 = TDigest([4.0, 5.0])
+            >>> digest = digest_1 | digest_2
+            >>> len(digest)
+            5
+            >>> digest.quantile(0.5)
+            3.0
+        """
         if not isinstance(other, TDigest):
             _unsupported_operand_types("|", self, other)
         result = self.copy()
@@ -52,14 +93,30 @@ class TDigest:
         return result
 
     def add(self, value: float, count: int = 1) -> None:
-        """Add a value to the t-digest."""
+        """Add a value to the t-digest.
+
+        Examples:
+            >>> digest = TDigest()
+            >>> digest.add(1.0)
+            >>> digest.add(2.0)
+            >>> len(digest)
+            2
+        """
         if count == 1:
             self._inner.add(value)
         else:
             self._inner.add_many(value, count)
 
     def clear(self) -> None:
-        """Clear the t-digest."""
+        """Clear the t-digest, removing all values.
+
+        Examples:
+            >>> digest = TDigest()
+            >>> digest.add(1.0)
+            >>> digest.clear()
+            >>> len(digest)
+            0
+        """
         self._inner.clear()
 
     def copy(self) -> "TDigest":
@@ -76,7 +133,13 @@ class TDigest:
         return digest
 
     def quantile(self, level: float) -> float:
-        """Return the estimated quantile of the t-digest."""
+        """Return the estimated quantile of the t-digest.
+
+        Examples:
+            >>> digest = TDigest([1.0, 2.0, 3.0, 4.0, 5.0])
+            >>> digest.quantile(0.5)
+            3.0
+        """
         return self._inner.quantile(level)
 
     def to_json(self) -> bytes:
@@ -84,7 +147,17 @@ class TDigest:
         return self._inner.to_json()
 
     def union(self, *others: TDigestible) -> "TDigest":
-        """Return a new t-digest with elements from the t-digest and all others."""
+        """Return a new t-digest with elements from the t-digest and all others.
+
+        Examples:
+            >>> digest_1 = TDigest([1.0, 2.0, 3.0])
+            >>> digest_2 = TDigest([4.0, 5.0])
+            >>> digest = digest_1.union(digest_2)
+            >>> len(digest)
+            5
+            >>> digest.quantile(0.5)
+            3.0
+        """
         if len(others) == 0:
             return self
         result = self.copy()
@@ -92,7 +165,16 @@ class TDigest:
         return result
 
     def update(self, *others: TDigestible) -> None:
-        """Update the t-digest, adding elements from all others."""
+        """Update the t-digest, adding elements from all others.
+
+        Examples:
+            >>> digest = TDigest([1.0, 2.0, 3.0])
+            >>> digest.update([4.0, 5.0])
+            >>> len(digest)
+            5
+            >>> digest.quantile(0.5)
+            3.0
+        """
         if len(others) == 0:
             return
         for other in others:
