@@ -30,6 +30,10 @@ impl TDigest {
         py.allow_threads(|| self.inner.insert(value));
     }
 
+    fn add_many(&mut self, py: Python, value: f32, count: usize) {
+        py.allow_threads(|| self.inner.insert_many(value, count));
+    }
+
     fn clear(&mut self, py: Python) {
         py.allow_threads(|| self.inner.clear());
     }

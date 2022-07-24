@@ -51,9 +51,12 @@ class TDigest:
         result._inner.update_digest(other._inner)
         return result
 
-    def add(self, value: float) -> None:
+    def add(self, value: float, count: int = 1) -> None:
         """Add a value to the t-digest."""
-        self._inner.add(value)
+        if count == 1:
+            self._inner.add(value)
+        else:
+            self._inner.add_many(value, count)
 
     def clear(self) -> None:
         """Clear the t-digest."""
