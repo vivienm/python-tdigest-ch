@@ -2,6 +2,12 @@
 
 A Python port of ClickHouse t-digest data structures, implemented in Rust.
 
+The [t-digest][tdigest-paper] data structure is designed around computing
+accurate quantile estimates from streaming data. Two t-digests can be merged,
+making the data structure ideal for map-reduce settings.
+
+[tdigest-paper]: https://github.com/tdunning/t-digest/blob/main/docs/t-digest-paper/histo.pdf
+
 ## Usage
 
 ### Installation
