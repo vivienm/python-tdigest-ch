@@ -2,7 +2,7 @@ from typing import Any, Iterable, NoReturn, Optional, Union
 
 from . import _rust  # type: ignore
 
-_Elements = Union[Iterable[float], "TDigest"]
+TDigestible = Union[Iterable[float], "TDigest"]
 
 
 def _unsupported_operand_types(op: str, left: Any, right: Any) -> NoReturn:
@@ -20,7 +20,7 @@ class TDigest:
 
     def __init__(
         self,
-        elems: Optional[_Elements] = None,
+        elems: Optional[TDigestible] = None,
     ) -> None:
         if isinstance(elems, TDigest):
             self._inner = elems._inner.copy()
@@ -80,7 +80,7 @@ class TDigest:
         """Return a JSON representation of the t-digest."""
         return self._inner.to_json()
 
-    def update(self, *others: _Elements) -> None:
+    def update(self, *others: TDigestible) -> None:
         """Update the t-digest, adding elements from all others."""
         if len(others) == 0:
             return
@@ -92,7 +92,7 @@ class TDigest:
             else:
                 self._inner.update_vec(list(other))
 
-    def union(self, *others: _Elements) -> "TDigest":
+    def union(self, *others: TDigestible) -> "TDigest":
         """Return a new t-digest with elements from the t-digest and all others."""
         if len(others) == 0:
             return self
