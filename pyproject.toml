@@ -4,7 +4,9 @@ description = "A Python port of ClickHouse t-digest data structures, implemented
 readme = "README.md"
 requires-python = ">=3.7"
 license = {text = "MIT"}
-authors = [{name = "Vivien Maisonneuve", email = "v.maisonneuve@gmail.com"}]
+authors = [
+    {name = "Vivien Maisonneuve", email = "v.maisonneuve@gmail.com"},
+]
 dynamic = ["version"]
 dependencies = []
 
@@ -15,16 +17,18 @@ Repository = "https://github.com/vivienm/python-tdigest-ch"
 
 
 [build-system]
-requires = ["pdm-pep517>=0.12.0", "setuptools-rust"]
+requires = [
+    "pdm-pep517",
+    "setuptools-rust",
+]
 build-backend = "pdm.pep517.api"
 
 
 [tool.pdm]
-version = {use_scm = true}
-editable-backend = "editables"
+package-dir = "src"
 
 [tool.pdm.build]
-package-dir = "src"
+editable-backend = "editables"
 setup-script = "build.py"
 run-setuptools = true
 
@@ -56,16 +60,16 @@ nox = [
     "nox>=2022.1.7",
 ]
 
+[tool.pdm.version]
+source = "scm"
+
 
 [tool.isort]
 profile = "black"
 
 
 [tool.mypy]
-exclude = [
-    "__pypackages__",
-    "build",
-]
+exclude = ["^build/"]
 
 [[tool.mypy.overrides]]
 module = [
@@ -80,4 +84,7 @@ ignore_missing_imports = true
 
 [tool.pytest.ini_options]
 addopts = "--doctest-modules"
-testpaths = "src tests"
+testpaths = [
+    "src",
+    "tests",
+]

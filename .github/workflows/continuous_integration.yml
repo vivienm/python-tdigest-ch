@@ -57,8 +57,8 @@ jobs:
     - name: "Resolve dependencies"
       run: "pdm lock"
     - name: "Install Nox"
-      run: "pdm sync -G nox --no-default --no-self"
+      run: "pip install --user nox"
     - name: "Run Nox"
-      run: "pdm run nox"
+      run: "nox"
       env:
         NOXSESSION: "${{ matrix.nox-session }}"
