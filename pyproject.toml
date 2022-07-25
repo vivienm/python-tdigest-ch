@@ -53,8 +53,8 @@ pytest = [
     "pytest-benchmark>=3.4.1",
     "tdigest>=0.5.2.2",
 ]
-audit = [
-    "pip-audit>=2.4.1",
+safety = [
+    "safety>=2.1.1",
 ]
 nox = [
     "nox>=2022.1.7",

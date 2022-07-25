@@ -4,7 +4,6 @@ from tempfile import TemporaryDirectory
 
 import nox
 
-nox.options.sessions = ["black", "isort", "flake8", "mypy", "pytest"]
 nox.options.default_venv_backend = "venv"
 nox.options.reuse_existing_virtualenvs = True
 
@@ -20,6 +19,7 @@ def black(session: nox.Session) -> None:
         "-G",
         "black",
         "--no-default",
+        "--no-editable",
         "--no-self",
         external=True,
     )
@@ -35,6 +35,7 @@ def isort(session: nox.Session) -> None:
         "-G",
         "isort",
         "--no-default",
+        "--no-editable",
         "--no-self",
         external=True,
     )
@@ -50,6 +51,7 @@ def flake8(session: nox.Session) -> None:
         "-G",
         "flake8",
         "--no-default",
+        "--no-editable",
         "--no-self",
         external=True,
     )
@@ -64,6 +66,7 @@ def mypy(session: nox.Session) -> None:
         "--clean",
         "-G",
         "mypy",
+        "--no-editable",
         "--no-self",
         external=True,
     )
@@ -78,6 +81,7 @@ def pytest(session: nox.Session) -> None:
         "--clean",
         "-G",
         "pytest",
+        "--no-editable",
         external=True,
     )
     session.run("pytest", "--benchmark-skip")
@@ -97,14 +101,15 @@ def bench(session: nox.Session) -> None:
 
 
 @nox.session()
-def audit(session: nox.Session) -> None:
+def safety(session: nox.Session) -> None:
     session.run(
         "pdm",
         "sync",
         "--clean",
         "-G",
-        "audit",
+        "safety",
         "--no-default",
+        "--no-editable",
         "--no-self",
         external=True,
     )
@@ -122,8 +127,8 @@ def audit(session: nox.Session) -> None:
             external=True,
         )
         session.run(
-            "pip-audit",
+            "safety",
+            "check",
             "-r",
             str(requirements),
-            external=True,
         )
