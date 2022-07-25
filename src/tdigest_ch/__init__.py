@@ -75,9 +75,9 @@ class TDigest:
         digest._inner = _rust.TDigest.from_json(json)
         return digest
 
-    def quantile(self, q: float) -> float:
-        """Return the qth quantile of the t-digest."""
-        return self._inner.quantile(q)
+    def quantile(self, level: float) -> float:
+        """Return the estimated quantile of the t-digest."""
+        return self._inner.quantile(level)
 
     def to_json(self) -> bytes:
         """Return a JSON representation of the t-digest."""
