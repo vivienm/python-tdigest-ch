@@ -102,8 +102,18 @@ class TestTDigest:
         assert t.quantile(1.0) == 3.0
         assert t.quantile(0.5) == 2.0
 
+        t.add(5.0, 4)
+        assert len(t) == 7
+        assert t.quantile(0.5) == 3.5
+
         with pytest.raises(TypeError):
             t.add("not a number")
+
+        with pytest.raises(TypeError):
+            t.add(1.0, "not a number")
+
+        with pytest.raises(OverflowError):
+            t.add(1.0, -1)
 
     def test_clear(self):
         t = TDigest([1.0, 2.0, 3.0])
