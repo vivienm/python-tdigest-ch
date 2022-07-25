@@ -1,6 +1,6 @@
 from typing import Any, Iterable, NoReturn, Optional, Union
 
-from . import _rust  # type: ignore
+import tdigest_ch_rust as _rust  # type: ignore
 
 TDigestible = Union[Iterable[float], "TDigest"]
 

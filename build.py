@@ -2,7 +2,7 @@ from setuptools_rust import RustExtension
 
 rust_extensions = [
     RustExtension(
-        "tdigest_ch._rust",
+        "tdigest_ch_rust",
         "src/tdigest_ch_rust/Cargo.toml",
     ),
 ]

@@ -84,7 +84,7 @@ impl TDigest {
 }
 
 #[pymodule]
-fn _rust(_py: Python<'_>, m: &PyModule) -> PyResult<()> {
+fn tdigest_ch_rust(_py: Python<'_>, m: &PyModule) -> PyResult<()> {
     m.add_class::<TDigest>()?;
     Ok(())
 }
