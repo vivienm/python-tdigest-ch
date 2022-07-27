@@ -28,7 +28,6 @@ build-backend = "pdm.pep517.api"
 package-dir = "src"
 
 [tool.pdm.build]
-editable-backend = "editables"
 setup-script = "build.py"
 run-setuptools = true
 
