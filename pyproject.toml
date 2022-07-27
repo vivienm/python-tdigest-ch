@@ -86,7 +86,7 @@ ignore_missing_imports = true
 
 
 [tool.pytest.ini_options]
-addopts = "--doctest-modules"
+addopts = "--doctest-modules --benchmark-skip"
 testpaths = [
     "src",
     "tests",

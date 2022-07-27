@@ -84,7 +84,7 @@ def pytest(session: nox.Session) -> None:
         "--no-editable",
         external=True,
     )
-    session.run("pytest", "--benchmark-skip")
+    session.run("pytest")
 
 
 @nox.session()
