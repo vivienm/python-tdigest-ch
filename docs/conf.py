@@ -1,6 +1,6 @@
 project = "tdigest-ch"
 author = "Vivien Maisonneuve"
-copyright = f"2022, {author}"
+copyright = "2022, Vivien Maisonneuve"
 
 extensions = [
     "sphinx.ext.autodoc",

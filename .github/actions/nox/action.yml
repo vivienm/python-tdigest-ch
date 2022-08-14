@@ -1,0 +1,25 @@
+name: "Run Nox"
+
+inputs:
+  python-version:
+    description: "Python version"
+    required: false
+    default: "3.10"
+  nox-session:
+    description: "Nox session"
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+  - uses: "pdm-project/setup-pdm@main"
+    with:
+      python-version: "${{ inputs.python-version }}"
+  - run: "pdm lock"
+    shell: "bash"
+  - run: "pip install --user nox"
+    shell: "bash"
+  - run: "nox"
+    shell: "bash"
+    env:
+      NOXSESSION: "${{ inputs.nox-session }}"

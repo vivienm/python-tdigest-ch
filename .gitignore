@@ -5,7 +5,6 @@
 /.pytest_cache/
 /build/
 /dist/
-/docs/_build/
 /pdm.lock
 /src/*.egg-info/
 /src/**/*.cpython-*.so

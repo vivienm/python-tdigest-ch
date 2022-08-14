@@ -1,0 +1,70 @@
+name: "Continuous integration"
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  black:
+    runs-on: "ubuntu-latest"
+    steps:
+    - uses: "actions/checkout@v3"
+    - uses: "./.github/actions/nox"
+      with:
+        nox-session: "black"
+
+  isort:
+    runs-on: "ubuntu-latest"
+    steps:
+    - uses: "actions/checkout@v3"
+    - uses: "./.github/actions/nox"
+      with:
+        nox-session: "isort"
+
+  flake8:
+    runs-on: "ubuntu-latest"
+    steps:
+    - uses: "actions/checkout@v3"
+    - uses: "./.github/actions/nox"
+      with:
+        nox-session: "flake8"
+
+  mypy:
+    runs-on: "ubuntu-latest"
+    steps:
+    - uses: "actions/checkout@v3"
+    - uses: "./.github/actions/nox"
+      with:
+        nox-session: "mypy"
+
+  pytest:
+    strategy:
+      matrix:
+        python-version: ["3.8", "3.9", "3.10"]
+    runs-on: "ubuntu-latest"
+    steps:
+    - uses: "actions/checkout@v3"
+    - uses: "./.github/actions/nox"
+      with:
+        nox-session: "pytest-${{ matrix.python-version }}"
+        python-version: "${{ matrix.python-version }}"
+
+  sphinx:
+    runs-on: "ubuntu-latest"
+    steps:
+    - uses: "actions/checkout@v3"
+    - uses: "./.github/actions/nox"
+      with:
+        nox-session: "sphinx"
+    - if: "github.ref == 'refs/heads/master'"
+      uses: "JamesIves/github-pages-deploy-action@v4"
+      with:
+        folder: "docs/_build/html"
+
+  safety:
+    runs-on: "ubuntu-latest"
+    steps:
+    - uses: "actions/checkout@v3"
+    - uses: "./.github/actions/nox"
+      with:
+        nox-session: "safety"

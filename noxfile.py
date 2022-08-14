@@ -88,6 +88,19 @@ def pytest(session: nox.Session) -> None:
 
 
 @nox.session()
+def bench(session: nox.Session) -> None:
+    session.run(
+        "pdm",
+        "sync",
+        "--clean",
+        "-G",
+        "pytest",
+        external=True,
+    )
+    session.run("pytest", "--benchmark-only")
+
+
+@nox.session()
 def sphinx(session: nox.Session) -> None:
     session.run(
         "pdm",
@@ -99,19 +112,6 @@ def sphinx(session: nox.Session) -> None:
         external=True,
     )
     session.run("sphinx-build", "docs", "docs/_build/html")
-
-
-@nox.session()
-def bench(session: nox.Session) -> None:
-    session.run(
-        "pdm",
-        "sync",
-        "--clean",
-        "-G",
-        "pytest",
-        external=True,
-    )
-    session.run("pytest", "--benchmark-only")
 
 
 @nox.session()

@@ -10,7 +10,7 @@ making the data structure ideal for map-reduce settings.
 .. _t-digest: https://github.com/tdunning/t-digest/blob/main/docs/t-digest-paper/histo.pdf
 
 
-API Reference
+API reference
 -------------
 
 .. currentmodule:: tdigest_ch
