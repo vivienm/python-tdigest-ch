@@ -4,6 +4,10 @@ on:
   push:
   pull_request:
 
+concurrency:
+  group: "ci-${{ github.ref }}"
+  cancel-in-progress: true
+
 jobs:
   black:
     runs-on: "ubuntu-latest"
@@ -48,6 +52,22 @@ jobs:
       with:
         nox-session: "pytest-${{ matrix.python-version }}"
         python-version: "${{ matrix.python-version }}"
+    - uses: "actions/upload-artifact@v3"
+      with:
+        name: "coverage"
+        path: "./.coverage.*"
+
+  coverage:
+    needs: "pytest"
+    runs-on: "ubuntu-latest"
+    steps:
+    - uses: "actions/checkout@v3"
+    - uses: "actions/download-artifact@v3"
+      with:
+        name: "coverage"
+    - uses: "./.github/actions/nox"
+      with:
+        nox-session: "coverage"
 
   sphinx:
     runs-on: "ubuntu-latest"
@@ -56,10 +76,10 @@ jobs:
     - uses: "./.github/actions/nox"
       with:
         nox-session: "sphinx"
-    - if: "github.ref == 'refs/heads/master'"
-      uses: "JamesIves/github-pages-deploy-action@v4"
+    - if: "github.ref == format('refs/heads/{0}', github.event.repository.default_branch)"
+      uses: "actions/upload-pages-artifact@v1"
       with:
-        folder: "docs/_build/html"
+        path: "./docs/_build/html"
 
   safety:
     runs-on: "ubuntu-latest"
@@ -68,3 +88,17 @@ jobs:
     - uses: "./.github/actions/nox"
       with:
         nox-session: "safety"
+
+  pages:
+    if: "github.ref == format('refs/heads/{0}', github.event.repository.default_branch)"
+    needs: "sphinx"
+    permissions:
+      pages: "write"
+      id-token: "write"
+    environment:
+      name: "github-pages"
+      url: "${{ steps.deployment.outputs.page_url }}"
+    runs-on: "ubuntu-latest"
+    steps:
+    - id: "deployment"
+      uses: "actions/deploy-pages@v1"

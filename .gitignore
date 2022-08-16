@@ -1,10 +1,17 @@
 /.benchmarks/
+/.coverage
+/.coverage.*
 /.mypy_cache/
 /.nox/
 /.pdm.toml
 /.pytest_cache/
+/.venv/
 /build/
+/coverage.json
+/coverage.lcov
+/coverage.xml
 /dist/
+/htmlcov/
 /pdm.lock
 /src/*.egg-info/
 /src/**/*.cpython-*.so

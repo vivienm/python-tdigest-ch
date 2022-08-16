@@ -84,7 +84,31 @@ def pytest(session: nox.Session) -> None:
         "--no-editable",
         external=True,
     )
-    session.run("pytest")
+    session.run(
+        "coverage",
+        "run",
+        "--module",
+        "pytest",
+        env={"COVERAGE_FILE": f".coverage.{session.name}"},
+        success_codes=[0, 5],
+    )
+
+
+@nox.session()
+def coverage(session: nox.Session) -> None:
+    session.run(
+        "pdm",
+        "sync",
+        "--clean",
+        "-G",
+        "coverage",
+        "--no-default",
+        "--no-editable",
+        "--no-self",
+        external=True,
+    )
+    session.run("coverage", "combine")
+    session.run("coverage", "report")
 
 
 @nox.session()
