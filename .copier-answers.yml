@@ -1,6 +1,6 @@
 # Changes here will be overwritten by Copier. NEVER EDIT MANUALLY.
 
-_commit: f58cd27
+_commit: 9b6dc39
 _src_path: gh:vivienm/copier-python-pdm
 author_email: v.maisonneuve@gmail.com
 author_fullname: Vivien Maisonneuve
@@ -10,12 +10,16 @@ copyright_license: MIT
 distribution_name: tdigest-ch
 module_name: tdigest_ch
 pages_enabled: true
+pages_provider: github.io
+pages_url: https://vivienm.github.io/python-tdigest-ch
 project_description: A Python library for estimating quantiles in a stream, using
     ClickHouse t-digest data structure.
 project_name: tdigest-ch
 project_type: lib
 python_version: '>=3.8'
+repository_hosted: true
 repository_name: python-tdigest-ch
 repository_namespace: vivienm
 repository_provider: github.com
+repository_url: https://github.com/vivienm/python-tdigest-ch
 script_name: tdigest-ch

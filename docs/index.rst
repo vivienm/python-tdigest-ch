@@ -8,8 +8,11 @@ The `t-digest <Dunning19_>`_ data structure is designed around computing
 accurate quantile estimates from streaming data. Two t-digests can be merged,
 making the data structure well suited for map-reduce settings.
 
+Repository_
+
 .. _Dunning19: https://github.com/tdunning/t-digest/blob/main/docs/t-digest-paper/histo.pdf
 .. _ClickHouseRefTDigest: https://clickhouse.com/docs/en/sql-reference/aggregate-functions/reference/quantiletdigest/
+.. _Repository: https://github.com/vivienm/python-tdigest-ch
 
 
 API reference

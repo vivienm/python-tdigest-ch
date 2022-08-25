@@ -12,7 +12,7 @@ dependencies = []
 
 [project.urls]
 repository = "https://github.com/vivienm/python-tdigest-ch"
-documentation = "https://vivienm.github.io/python-tdigest-ch/"
+documentation = "https://vivienm.github.io/python-tdigest-ch/docs/"
 
 [project.optional-dependencies]
 

@@ -15,8 +15,9 @@ runs:
   - uses: "pdm-project/setup-pdm@main"
     with:
       python-version: "${{ inputs.python-version }}"
-  - run: "pdm lock"
-    shell: "bash"
+  - uses: "actions/download-artifact@v3"
+    with:
+      name: "pdm-lockfile"
   - run: "pip install --user nox"
     shell: "bash"
   - run: "nox"
