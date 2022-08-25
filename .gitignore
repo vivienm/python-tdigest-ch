@@ -13,5 +13,6 @@
 /dist/
 /htmlcov/
 /pdm.lock
+/setup.py
 /src/*.egg-info/
 /src/**/*.cpython-*.so
