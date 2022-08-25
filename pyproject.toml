@@ -83,7 +83,6 @@ exclude = ["^build/"]
 module = [
     "nox",
     "pytest_benchmark.fixture",
-    "tdigest_ch._rust",
     "setuptools_rust",
     "tdigest",
 ]
