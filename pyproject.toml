@@ -1,6 +1,6 @@
 [project]
-name = "tdigest_ch"
-description = "A Python port of ClickHouse t-digest data structures, implemented in Rust."
+name = "tdigest-ch"
+description = "A Python library for estimating quantiles in a stream, using ClickHouse t-digest data structure."
 readme = "README.md"
 requires-python = ">=3.8"
 license = {text = "MIT"}

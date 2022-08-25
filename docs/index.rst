@@ -1,13 +1,15 @@
 tdigest-ch
 ==========
 
-A Python port of ClickHouse t-digest data structures, implemented in Rust.
+A Python library for estimating quantiles in a stream,
+using `ClickHouse t-digest <ClickHouseRefTDigest_>`_ data structure.
 
-The `t-digest`_ data structure is designed around computing
+The `t-digest <Dunning19_>`_ data structure is designed around computing
 accurate quantile estimates from streaming data. Two t-digests can be merged,
-making the data structure ideal for map-reduce settings.
+making the data structure well suited for map-reduce settings.
 
-.. _t-digest: https://github.com/tdunning/t-digest/blob/main/docs/t-digest-paper/histo.pdf
+.. _Dunning19: https://github.com/tdunning/t-digest/blob/main/docs/t-digest-paper/histo.pdf
+.. _ClickHouseRefTDigest: https://clickhouse.com/docs/en/sql-reference/aggregate-functions/reference/quantiletdigest/
 
 
 API reference
