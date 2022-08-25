@@ -50,9 +50,7 @@ impl TDigest {
             let inner: tdigest_ch::TDigest = serde_json::from_slice(data).map_err(|e| {
                 PyValueError::new_err(format!("Failed to deserialize TDigest: {}", e))
             })?;
-            Ok(TDigest {
-                inner: inner.into(),
-            })
+            Ok(TDigest { inner })
         })
     }
 
