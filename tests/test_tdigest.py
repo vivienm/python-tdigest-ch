@@ -203,6 +203,12 @@ class TestTDigest:
         with pytest.raises(TypeError):
             t1.union(1)
 
+        t5 = TDigest()
+        t6 = t5.union()
+        t6.update([1.0, 2.0, 3.0])
+        assert len(t5) == 0
+        assert len(t6) == 3
+
     def test_update(self):
         t1 = TDigest([1.0, 2.0, 3.0])
         t2 = TDigest([3.0, 4.0, 5.0])

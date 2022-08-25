@@ -158,8 +158,6 @@ class TDigest:
             >>> digest.quantile(0.5)
             3.0
         """
-        if len(others) == 0:
-            return self
         result = self.copy()
         result.update(*others)
         return result
@@ -175,8 +173,6 @@ class TDigest:
             >>> digest.quantile(0.5)
             3.0
         """
-        if len(others) == 0:
-            return
         for other in others:
             if isinstance(other, TDigest):
                 self._inner.update_digest(other._inner)
