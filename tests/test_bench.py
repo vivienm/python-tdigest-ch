@@ -40,3 +40,18 @@ def test_rs_quantile(benchmark: BenchmarkFixture, samples: List[float]):
     t = RsTDigest()
     t.update(samples)
     benchmark(t.quantile, 0.5)
+
+
+@pytest.fixture(scope="session")
+def full_tdigest() -> RsTDigest:
+    return RsTDigest(random.gauss(0.0, 1.0) for _ in range(1_000_000))
+
+
+@pytest.mark.benchmark(group="serialize")
+def test_serialize(benchmark: BenchmarkFixture, full_tdigest: RsTDigest) -> None:
+    benchmark(full_tdigest.to_json)
+
+
+@pytest.mark.benchmark(group="deserialize")
+def test_deserialize(benchmark: BenchmarkFixture, full_tdigest: RsTDigest) -> None:
+    benchmark(RsTDigest.from_json, full_tdigest.to_json())
