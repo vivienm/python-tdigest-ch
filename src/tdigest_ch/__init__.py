@@ -1,6 +1,6 @@
 from typing import Any, Iterable, NoReturn, Optional, Union
 
-import tdigest_ch_rust as _rust  # type: ignore
+import tdigest_ch_rust as _rust
 
 TDigestible = Union[Iterable[float], "TDigest"]
 
@@ -27,7 +27,7 @@ class TDigest:
 
     __slots__ = ["_inner"]
 
-    _inner: _rust.TDigest
+    _inner: _rust.TDigest  # type: ignore
 
     def __init__(
         self,
@@ -36,7 +36,7 @@ class TDigest:
         if isinstance(elems, TDigest):
             self._inner = elems._inner.copy()
             return
-        self._inner = _rust.TDigest()
+        self._inner = _rust.TDigest()  # type: ignore
         if elems is not None:
             self.update(elems)
 
@@ -129,7 +129,7 @@ class TDigest:
         if isinstance(json, str):
             json = json.encode()
         digest = TDigest.__new__(TDigest)
-        digest._inner = _rust.TDigest.from_json(json)
+        digest._inner = _rust.TDigest.from_json(json)  # type: ignore
         return digest
 
     def quantile(self, level: float) -> float:
