@@ -39,14 +39,14 @@ jobs:
       with:
         nox-session: "isort"
 
-  flake8:
+  ruff:
     needs: "lock"
     runs-on: "ubuntu-latest"
     steps:
     - uses: "actions/checkout@v3"
     - uses: "./.github/actions/nox"
       with:
-        nox-session: "flake8"
+        nox-session: "ruff"
 
   mypy:
     needs: "lock"
