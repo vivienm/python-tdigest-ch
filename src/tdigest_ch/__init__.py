@@ -7,7 +7,7 @@ TDigestible = Union[Iterable[float], "TDigest"]
 
 def _unsupported_operand_types(op: str, left: Any, right: Any) -> NoReturn:
     raise TypeError(
-        f"unsupported operand type(s) for {op}:" f" {type(left)!r} and {type(right)}"
+        f"unsupported operand type(s) for {op}: {type(left)!r} and {type(right)!r}"
     )
 
 
