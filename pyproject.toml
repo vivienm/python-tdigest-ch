@@ -25,10 +25,8 @@ requires = [
 build-backend = "pdm.pep517.api"
 
 
-[tool.pdm]
-package-dir = "src"
-
 [tool.pdm.build]
+package-dir = "src"
 setup-script = "build.py"
 run-setuptools = true
 
@@ -44,6 +42,7 @@ isort = [
 ]
 mypy = [
     "mypy>=0.961",
+    "nox>=2022.11.21",
     "pytest>=7.1.2",
     "setuptools-rust>=1.4.1",
 ]
@@ -76,6 +75,7 @@ profile = "black"
 
 
 [tool.mypy]
+strict = true
 exclude = ["^build/"]
 
 [[tool.mypy.overrides]]
