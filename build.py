@@ -1,4 +1,4 @@
-from typing import Any
+from typing import Any, Dict
 
 from setuptools_rust import RustExtension
 
@@ -10,6 +10,6 @@ rust_extensions = [
 ]
 
 
-def build(setup_kwargs: dict[str, Any]) -> None:
+def build(setup_kwargs: Dict[str, Any]) -> None:
     setup_kwargs.update(rust_extensions=rust_extensions)
     setup_kwargs.update(rust_extensions=rust_extensions)
