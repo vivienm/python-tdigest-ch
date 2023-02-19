@@ -140,11 +140,11 @@ class TDigest:
             >>> digest.quantile(0.5)
             3.0
         """
-        return self._inner.quantile(level)
+        return self._inner.quantile(level)  # type: ignore
 
     def to_json(self) -> bytes:
         """Return a JSON representation of the t-digest."""
-        return self._inner.to_json()
+        return self._inner.to_json()  # type: ignore
 
     def union(self, *others: TDigestible) -> "TDigest":
         """Return a new t-digest with elements from the t-digest and all others.

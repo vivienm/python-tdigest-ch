@@ -26,7 +26,7 @@ def py_worker(worker_id: int) -> NoReturn:
         print("Thread {} added {} elements".format(worker_id, NUM_ELEMS))
 
 
-def main():
+def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument(
         "-i",

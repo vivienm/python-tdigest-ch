@@ -15,28 +15,28 @@ def samples() -> List[float]:
 
 
 @pytest.mark.benchmark(group="update")
-def test_py_update(benchmark: BenchmarkFixture, samples: List[float]):
+def test_py_update(benchmark: BenchmarkFixture, samples: List[float]) -> None:
     t = PyTDigest()
     benchmark(t.batch_update, samples)
     assert -1.0 <= t.percentile(50) <= 1.0
 
 
 @pytest.mark.benchmark(group="update")
-def test_rs_update(benchmark: BenchmarkFixture, samples: List[float]):
+def test_rs_update(benchmark: BenchmarkFixture, samples: List[float]) -> None:
     t = RsTDigest()
     benchmark(t.update, samples)
     assert -1.0 <= t.quantile(0.5) <= 1.0
 
 
 @pytest.mark.benchmark(group="quantile")
-def test_py_quantile(benchmark: BenchmarkFixture, samples: List[float]):
+def test_py_quantile(benchmark: BenchmarkFixture, samples: List[float]) -> None:
     t = PyTDigest()
     t.batch_update(samples)
     benchmark(t.percentile, 50)
 
 
 @pytest.mark.benchmark(group="quantile")
-def test_rs_quantile(benchmark: BenchmarkFixture, samples: List[float]):
+def test_rs_quantile(benchmark: BenchmarkFixture, samples: List[float]) -> None:
     t = RsTDigest()
     t.update(samples)
     benchmark(t.quantile, 0.5)
