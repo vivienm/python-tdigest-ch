@@ -4,8 +4,9 @@ __pycache__/
 /.coverage.*
 /.mypy_cache/
 /.nox/
-/.pdm.toml
+/.pdm-python
 /.pytest_cache/
+/.ruff_cache/
 /.venv/
 /build/
 /coverage.json

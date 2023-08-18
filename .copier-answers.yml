@@ -1,12 +1,12 @@
 # Changes here will be overwritten by Copier. NEVER EDIT MANUALLY.
 
-_commit: 831e8eb
+_commit: 8c99043
 _src_path: gh:vivienm/copier-python-pdm
 author_email: v.maisonneuve@gmail.com
 author_fullname: Vivien Maisonneuve
-copyright_date: '2022'
 copyright_holder: Vivien Maisonneuve
 copyright_license: MIT
+copyright_year: 2022
 distribution_name: tdigest-ch
 module_name: tdigest_ch
 pages_enabled: true
@@ -22,4 +22,3 @@ repository_name: python-tdigest-ch
 repository_namespace: vivienm
 repository_provider: github.com
 repository_url: https://github.com/vivienm/python-tdigest-ch
-script_name: tdigest-ch
