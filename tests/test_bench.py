@@ -4,7 +4,6 @@ from typing import List
 import pytest
 from pytest_benchmark.fixture import BenchmarkFixture
 from tdigest import TDigest as PyTDigest
-
 from tdigest_ch import TDigest as RsTDigest
 
 

@@ -2,7 +2,6 @@ import math
 import random
 
 import pytest
-
 from tdigest_ch import TDigest
 
 

@@ -11,6 +11,4 @@ extensions = [
 
 html_theme = "furo"
 
-intersphinx_mapping = {
-    "https://docs.python.org/3": None,
-}
+intersphinx_mapping = {"python": ("https://docs.python.org/3", None)}

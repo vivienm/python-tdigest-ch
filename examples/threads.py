@@ -4,7 +4,6 @@ from multiprocessing.dummy import Pool
 from typing import NoReturn
 
 from tdigest import TDigest as PyTDigest
-
 from tdigest_ch import TDigest as RsTDigest
 
 NUM_ELEMS = 50_000

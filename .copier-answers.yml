@@ -1,6 +1,6 @@
 # Changes here will be overwritten by Copier. NEVER EDIT MANUALLY.
 
-_commit: 8c99043
+_commit: '4398304'
 _src_path: gh:vivienm/copier-python-pdm
 author_email: v.maisonneuve@gmail.com
 author_fullname: Vivien Maisonneuve
@@ -16,7 +16,7 @@ project_description: A Python library for estimating quantiles in a stream, usin
     ClickHouse t-digest data structure.
 project_name: tdigest-ch
 project_type: lib
-python_version: '>=3.8'
+python_version: '3.8'
 repository_hosted: true
 repository_name: python-tdigest-ch
 repository_namespace: vivienm
