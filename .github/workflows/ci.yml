@@ -1,34 +1,75 @@
-name: "Continuous integration"
+name: "CI"
 
 on:
   push:
   pull_request:
 
+concurrency:
+  group: "ci-${{ github.ref }}"
+  cancel-in-progress: true
+
 jobs:
-  nox:
+  just:
+    name: "Just"
     runs-on: "ubuntu-latest"
     steps:
-    - uses: "pdm-project/setup-pdm@main"
-      with:
-        python-version: "3.8"
-    - uses: "actions/checkout@v3"
-    - run: "pdm venv create 3.8"
-    - run: "pdm install"
-    - uses: "actions/upload-artifact@v3"
-      with:
-        name: "pdm-lockfile"
-        path: "./pdm.lock"
-        retention-days: 7
-    - run: "pdm run nox"
-    - uses: "actions/upload-artifact@v3"
-      with:
-        name: "sphinx"
-        path: "./docs/_build/html"
-        retention-days: 7
+      - name: "Checkout"
+        uses: "actions/checkout@v4"
+      - name: "Install the Rust toolchain"
+        uses: "dtolnay/rust-toolchain@stable"
+        with:
+          components: "clippy, rustfmt"
+      - name: "Install sccache"
+        uses: "mozilla-actions/sccache-action@v0.0.5"
+      - name: "Install development tools"
+        uses: "taiki-e/install-action@v2"
+        with:
+          tool: "just, cargo-audit, typos"
+      - name: "Install uv"
+        run: "curl -LsSf https://astral.sh/uv/install.sh | sh"
+      - name: "Cache Cargo directories"
+        uses: "actions/cache@v4"
+        with:
+          path: |
+            ~/.cargo/registry/index/
+            ~/.cargo/registry/cache/
+            ~/.cargo/git/db/
+            ~/.cargo/.crates.toml
+            ~/.cargo/.crates2.json
+            ~/.cargo/advisory-db/
+            target/
+          key: "${{ runner.os }}-cargo-${{ hashFiles('Cargo.lock') }}"
+          restore-keys: "${{ runner.os }}-cargo-"
+      - name: "Cache uv directories"
+        uses: "actions/cache@v4"
+        with:
+          path: |
+            ~/.cache/uv/
+            .venv/
+          key: "${{ runner.os }}-uv-${{ hashFiles('uv.lock') }}"
+          restore-keys: "${{ runner.os }}-uv-"
+      - name: "Run Just"
+        run: |
+          uv python install
+          touch pyproject.toml
+          just ci
+        env:
+          RUSTC_WRAPPER: "sccache"
+          SCCACHE_GHA_ENABLED: "true"
+          RUSTFLAGS: "-D warnings"
+      - name: "Prune uv cache"
+        run: "uv cache prune --ci"
+      - name: "Upload docs artifact"
+        uses: "actions/upload-artifact@v4"
+        with:
+          name: "docs"
+          path: "./docs/_build/html"
+          retention-days: 7
 
   pages:
+    name: "Pages"
     if: "github.ref == format('refs/heads/{0}', github.event.repository.default_branch)"
-    needs: "nox"
+    needs: "just"
     permissions:
       pages: "write"
       id-token: "write"
@@ -37,12 +78,15 @@ jobs:
       url: "${{ steps.deployment.outputs.page_url }}"
     runs-on: "ubuntu-latest"
     steps:
-    - uses: "actions/download-artifact@v3"
-      with:
-        name: "sphinx"
-        path: "${{ runner.temp }}/pages/docs"
-    - uses: "actions/upload-pages-artifact@v1"
-      with:
-        path: "${{ runner.temp }}/pages"
-    - id: "deployment"
-      uses: "actions/deploy-pages@v1"
+      - name: "Download docs artifact"
+        uses: "actions/download-artifact@v4"
+        with:
+          name: "docs"
+          path: "${{ runner.temp }}/pages/docs"
+      - name: "Upload pages artifact"
+        uses: "actions/upload-pages-artifact@v3"
+        with:
+          path: "${{ runner.temp }}/pages"
+      - name: "Deploy pages"
+        id: "deployment"
+        uses: "actions/deploy-pages@v4"

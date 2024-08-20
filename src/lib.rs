@@ -67,7 +67,7 @@ impl TDigest {
             serde_json::to_vec(&self.inner)
                 .map_err(|e| PyRuntimeError::new_err(format!("Failed to serialize TDigest: {e}")))
         })?;
-        Ok(PyBytes::new(py, &data).into())
+        Ok(PyBytes::new_bound(py, &data).into())
     }
 
     fn update_digest(&mut self, py: Python, other: &TDigest) {
@@ -77,12 +77,13 @@ impl TDigest {
     }
 
     fn update_vec(&mut self, py: Python, values: Vec<f32>) {
-        py.allow_threads(|| self.inner.extend(values.into_iter()));
+        py.allow_threads(|| self.inner.extend(values));
     }
 }
 
+/// Low-level extension module.
 #[pymodule]
-fn tdigest_ch_rust(_py: Python<'_>, m: &PyModule) -> PyResult<()> {
+fn _lowlevel(m: &Bound<'_, PyModule>) -> PyResult<()> {
     m.add_class::<TDigest>()?;
     Ok(())
 }

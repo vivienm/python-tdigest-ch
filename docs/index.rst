@@ -24,10 +24,3 @@ API reference
    :members:
    :undoc-members:
    :special-members: __ior__, __len__, __or__
-
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`search`

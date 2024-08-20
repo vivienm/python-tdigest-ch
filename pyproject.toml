@@ -1,72 +1,69 @@
 [project]
 name = "tdigest-ch"
-description = "A Python library for estimating quantiles in a stream, using ClickHouse t-digest data structure."
-readme = "README.md"
-requires-python = ">=3.8"
-license = {text = "MIT"}
+version = "0.1.0"
+description = "A Python library for estimating quantiles in a stream, using ClickHouse t-digest data structure"
 authors = [
-    {name = "Vivien Maisonneuve", email = "v.maisonneuve@gmail.com"},
+    { name = "Vivien Maisonneuve", email = "v.maisonneuve@gmail.com" },
 ]
-dynamic = ["version"]
 dependencies = []
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+classifiers = ["Private :: Do Not Upload"]
 
 [project.urls]
-repository = "https://github.com/vivienm/python-tdigest-ch"
-documentation = "https://vivienm.github.io/python-tdigest-ch/docs/"
-
+Documentation = "https://vivienm.github.io/python-tdigest-ch"
+Repository = "https://github.com/vivienm/python-tdigest-ch"
+Issues = "https://github.com/vivienm/python-tdigest-ch/issues"
 
 [build-system]
-requires = [
-    "pdm-pep517",
-    "setuptools-rust",
-]
-build-backend = "pdm.pep517.api"
+requires = ["maturin>=1.7.0"]
+build-backend = "maturin"
 
-
-[tool.pdm.build]
-package-dir = "src"
-setup-script = "build.py"
-run-setuptools = true
-
-[tool.pdm.dev-dependencies]
-dev = [
-    "furo>=2022.6.21",
-    "mypy>=0.971",
-    "nox>=2022.1.7",
-    "pip-audit>=2.6.1",
-    "pytest-benchmark>=3.4.1",
-    "pytest>=7.1.2",
-    "ruff>=0.0.152",
-    "setuptools-rust>=1.4.1",
-    "sphinx>=5.1.0",
+[tool.uv]
+dev-dependencies = [
+    "furo>=2024.8.6",
+    "mypy>=1.11.0",
+    "nox>=2024.4.15",
+    "pip-audit>=2.7.3",
+    "pytest-benchmark>=4.0.0",
+    "pytest>=8.3.1",
+    "ruff>=0.5.4",
+    "sphinx>=8.0.2",
     "tdigest>=0.5.2.2",
 ]
 
-[tool.pdm.version]
-source = "scm"
-
+[tool.maturin]
+python-source = "python"
+module-name = "tdigest_ch._lowlevel"
+features = ["pyo3/extension-module"]
 
 [tool.mypy]
 strict = true
-exclude = ["^build/"]
 
 [[tool.mypy.overrides]]
 module = [
     "pytest_benchmark.*",
+    "tdigest_ch._lowlevel",
     "tdigest.*",
 ]
 ignore_missing_imports = true
 
+[tool.ruff.lint]
+extend-select= [
+    "I",  # isort
+]
+unfixable = [
+    "F401",  # unused imports
+]
 
 [tool.pytest.ini_options]
-addopts = "--doctest-modules --benchmark-skip"
+addopts = [
+    "--doctest-modules",
+    "--import-mode=importlib",
+    "--benchmark-skip",
+]
 testpaths = [
     "src",
     "tests",
-]
-
-
-[tool.ruff]
-extend-select= [
-  "I",  # isort
 ]

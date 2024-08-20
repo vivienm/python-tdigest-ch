@@ -1,14 +1,35 @@
+# Configuration file for the Sphinx documentation builder.
+#
+# For the full list of built-in configuration values, see the documentation:
+# https://www.sphinx-doc.org/en/master/usage/configuration.html
+
+# -- Project information -----------------------------------------------------
+# https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
+
 project = "tdigest-ch"
-author = "Vivien Maisonneuve"
 copyright = "2022, Vivien Maisonneuve"
+author = "Vivien Maisonneuve"
+# release = "0.1.0"
+
+# -- General configuration ---------------------------------------------------
+# https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
 
 extensions = [
     "sphinx.ext.autodoc",
     "sphinx.ext.githubpages",
     "sphinx.ext.intersphinx",
-    "sphinx.ext.napoleon",
 ]
 
-html_theme = "furo"
+templates_path = ["_templates"]
+exclude_patterns = ["_build", "Thumbs.db", ".DS_Store"]
 
-intersphinx_mapping = {"python": ("https://docs.python.org/3", None)}
+# -- Options for HTML output -------------------------------------------------
+# https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
+
+html_theme = "furo"
+# html_static_path = ["_static"]
+
+# -- Options for intersphinx extension ---------------------------------------
+intersphinx_mapping = {
+    "python": ("https://docs.python.org/3.10", None),
+}

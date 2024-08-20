@@ -1,13 +1,8 @@
-__pycache__/
+/.benchmarks/
 /.mypy_cache/
-/.nox/
-/.pdm-python
 /.pytest_cache/
 /.ruff_cache/
 /.venv/
 /build/
 /dist/
-/pdm.lock
-/setup.py
-/src/*.egg-info/
-/src/**/*.cpython-*.so
+/target/
