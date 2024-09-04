@@ -2,14 +2,14 @@
 name = "tdigest-ch"
 version = "0.1.0"
 description = "A Python library for estimating quantiles in a stream, using ClickHouse t-digest data structure"
+readme = "README.md"
 authors = [
     { name = "Vivien Maisonneuve", email = "v.maisonneuve@gmail.com" },
 ]
-dependencies = []
-readme = "README.md"
-requires-python = ">=3.10"
 license = { text = "MIT" }
 classifiers = ["Private :: Do Not Upload"]
+requires-python = ">=3.10"
+dependencies = []
 
 [project.urls]
 Documentation = "https://vivienm.github.io/python-tdigest-ch"
@@ -31,6 +31,11 @@ dev-dependencies = [
     "ruff>=0.5.4",
     "sphinx>=8.0.2",
     "tdigest>=0.5.2.2",
+]
+cache-keys = [
+    { file = "Cargo.toml" },
+    { file = "Cargo.lock"},
+    { file = "src/**/*.rs" },
 ]
 
 [tool.maturin]

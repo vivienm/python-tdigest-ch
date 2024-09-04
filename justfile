@@ -41,7 +41,8 @@ sphinx:
 
 [group('python')]
 pip-audit:
-  uv run pip-audit --strict --require-hashes --disable-pip --requirement <(uv pip compile --no-header --no-annotate --generate-hashes --universal <(uv pip list --format=freeze --exclude-editable))
+  uv run pip-audit --strict --require-hashes --disable-pip --requirement \
+    <(uv export --format requirements-txt --all-extras --no-emit-project)
 
 typos:
   typos
