@@ -83,7 +83,7 @@ impl TDigest {
 
 /// Low-level extension module.
 #[pymodule]
-fn _lowlevel(m: &Bound<'_, PyModule>) -> PyResult<()> {
+fn _core(m: &Bound<'_, PyModule>) -> PyResult<()> {
     m.add_class::<TDigest>()?;
     Ok(())
 }

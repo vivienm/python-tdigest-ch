@@ -1,12 +1,13 @@
 # Changes here will be overwritten by Copier. NEVER EDIT MANUALLY.
 
-_commit: c021913
+_commit: c6af028
 _src_path: https://github.com/vivienm/copier-python-uv
 author_email: v.maisonneuve@gmail.com
 author_name: Vivien Maisonneuve
 build_system: maturin
 copyright_holder: Vivien Maisonneuve
 copyright_year: 2022
+doc_generator: sphinx
 github_account: vivienm
 github_pages: true
 hosting_platform: github

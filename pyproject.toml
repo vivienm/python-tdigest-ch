@@ -17,11 +17,11 @@ Repository = "https://github.com/vivienm/python-tdigest-ch"
 Issues = "https://github.com/vivienm/python-tdigest-ch/issues"
 
 [build-system]
-requires = ["maturin>=1.7.0"]
+requires = ["maturin>=1.0,<2.0"]
 build-backend = "maturin"
 
-[tool.uv]
-dev-dependencies = [
+[dependency-groups]
+dev = [
     "furo>=2024.8.6",
     "mypy>=1.11.0",
     "nox>=2024.4.15",
@@ -32,16 +32,17 @@ dev-dependencies = [
     "sphinx>=8.0.2",
     "tdigest>=0.5.2.2",
 ]
+
+[tool.uv]
 cache-keys = [
     { file = "Cargo.toml" },
-    { file = "Cargo.lock"},
+    { file = "Cargo.lock" },
     { file = "src/**/*.rs" },
 ]
 
 [tool.maturin]
 python-source = "python"
-module-name = "tdigest_ch._lowlevel"
-features = ["pyo3/extension-module"]
+module-name = "tdigest_ch._core"
 
 [tool.mypy]
 strict = true
@@ -49,7 +50,7 @@ strict = true
 [[tool.mypy.overrides]]
 module = [
     "pytest_benchmark.*",
-    "tdigest_ch._lowlevel",
+    "tdigest_ch._core",
     "tdigest.*",
 ]
 ignore_missing_imports = true
@@ -57,6 +58,7 @@ ignore_missing_imports = true
 [tool.ruff.lint]
 extend-select= [
     "I",  # isort
+    "COM",  # flake8-commas
 ]
 unfixable = [
     "F401",  # unused imports

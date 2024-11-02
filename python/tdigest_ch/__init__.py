@@ -1,13 +1,13 @@
 from typing import Any, Iterable, NoReturn, Optional, Union
 
-from ._lowlevel import TDigest as _TDigest
+from ._core import TDigest as _TDigest
 
 TDigestible = Union[Iterable[float], "TDigest"]
 
 
 def _unsupported_operand_types(op: str, left: Any, right: Any) -> NoReturn:
     raise TypeError(
-        f"unsupported operand type(s) for {op}: {type(left)!r} and {type(right)!r}"
+        f"unsupported operand type(s) for {op}: {type(left)!r} and {type(right)!r}",
     )
 
 
