@@ -67,7 +67,7 @@ impl TDigest {
             serde_json::to_vec(&self.inner)
                 .map_err(|e| PyRuntimeError::new_err(format!("Failed to serialize TDigest: {e}")))
         })?;
-        Ok(PyBytes::new_bound(py, &data).into())
+        Ok(PyBytes::new(py, &data).into())
     }
 
     fn update_digest(&mut self, py: Python, other: &TDigest) {
