@@ -24,9 +24,11 @@ jobs:
       - name: "Install development tools"
         uses: "taiki-e/install-action@v2"
         with:
-          tool: "just, cargo-audit, typos"
+          tool: "just, cargo-audit"
       - name: "Install uv"
-        run: "curl -LsSf https://astral.sh/uv/install.sh | sh"
+        uses: "astral-sh/setup-uv@v5"
+        with:
+          enable-cache: true
       - name: "Cache Cargo directories"
         uses: "actions/cache@v4"
         with:
@@ -40,25 +42,15 @@ jobs:
             target/
           key: "${{ runner.os }}-cargo-${{ hashFiles('Cargo.lock') }}"
           restore-keys: "${{ runner.os }}-cargo-"
-      - name: "Cache uv directories"
-        uses: "actions/cache@v4"
-        with:
-          path: |
-            ~/.cache/uv/
-            .venv/
-          key: "${{ runner.os }}-uv-${{ hashFiles('uv.lock') }}"
-          restore-keys: "${{ runner.os }}-uv-"
       - name: "Run Just"
         run: |
-          uv python install
           touch pyproject.toml
           just ci
         env:
           RUSTC_WRAPPER: "sccache"
           SCCACHE_GHA_ENABLED: "true"
           RUSTFLAGS: "-D warnings"
-      - name: "Prune uv cache"
-        run: "uv cache prune --ci"
+          UV_LOCKED: "true"
       - name: "Upload docs artifact"
         uses: "actions/upload-artifact@v4"
         with:

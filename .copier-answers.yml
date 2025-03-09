@@ -1,16 +1,15 @@
 # Changes here will be overwritten by Copier. NEVER EDIT MANUALLY.
 
-_commit: c6af028
+_commit: 936f71a
 _src_path: https://github.com/vivienm/copier-python-uv
-author_email: v.maisonneuve@gmail.com
-author_name: Vivien Maisonneuve
 build_system: maturin
 copyright_holder: Vivien Maisonneuve
 copyright_year: 2022
 doc_generator: sphinx
-github_account: vivienm
+forge: github
 github_pages: true
-hosting_platform: github
+github_repo: python-tdigest-ch
+github_user: vivienm
 license: MIT
 package_name: tdigest-ch
 project_description: A Python library for estimating quantiles in a stream, using
@@ -18,4 +17,5 @@ project_description: A Python library for estimating quantiles in a stream, usin
 project_name: tdigest-ch
 project_type: library
 python_version: '3.10'
-repo_name: python-tdigest-ch
+user_email: v.maisonneuve@gmail.com
+user_name: Vivien Maisonneuve

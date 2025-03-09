@@ -16,7 +16,10 @@ cargo-audit:
   cargo audit --file <(grep -v 'git+https://github.com/vivienm/' Cargo.lock)
 
 [group('python')]
-ruff:
+ruff: ruff-check ruff-format
+
+[group('python')]
+ruff-check:
   uv run ruff check
 
 [group('python')]
@@ -45,4 +48,4 @@ pip-audit:
     <(uv export --format requirements-txt --all-extras --no-emit-project)
 
 typos:
-  typos
+  uv run typos
