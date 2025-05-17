@@ -9,6 +9,6 @@ name = "_tdigest_ch"
 crate-type = ["cdylib"]
 
 [dependencies]
-pyo3 = { version = "0.23.5", features = ["extension-module", "abi3-py310"] }
+pyo3 = { version = "0.24.1", features = ["extension-module", "abi3-py310"] }
 serde_json = "1.0.140"
 tdigest-ch = { git = "https://github.com/vivienm/rust-tdigest-ch.git", version = "0.1.0", features = ["serde"] }

@@ -1,7 +1,7 @@
 # Changes here will be overwritten by Copier. NEVER EDIT MANUALLY.
 
-_commit: 936f71a
-_src_path: https://github.com/vivienm/copier-python-uv
+_commit: dfbbc8d
+_src_path: https://github.com/vivienm/copier-python
 build_system: maturin
 copyright_holder: Vivien Maisonneuve
 copyright_year: 2022
